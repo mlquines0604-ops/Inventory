@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- Keeping your external JS references if you still need them for backend logic -->
+<script src="config.js"></script>
+<script src="admin.js" defer></script>
 </head>
 <body>
 <div class="bg-layer">
@@ -31,12 +34,12 @@
     </svg>
   </button>
   <nav class="nav-links" id="mainNav">
-    <!-- Content injected by JS based on login state -->
+    <!-- Content injected by JS -->
   </nav>
 </header>
 
 <div class="mobile-nav" id="mobileNav">
-  <!-- Content injected by JS based on login state -->
+  <!-- Content injected by JS -->
 </div>
 
 <div class="container container-wide">
@@ -45,7 +48,7 @@
   <div id="loginSection" class="page-hero" style="display: none;">
     <div class="card animate-in" style="max-width: 400px; margin: 0 auto;">
       <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; margin-bottom: 8px; text-align: center;">Admin Login</h3>
-      <p style="text-align: center; color: var(--fg-muted); margin-bottom: 24px;">Enter your credentials to access the dashboard.</p>
+      <p style="text-align: center; color: var(--fg-muted); margin-bottom: 24px;">Access the dashboard to manage assets.</p>
       
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="form-group">
@@ -56,172 +59,124 @@
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="••••••••" required>
         </div>
-        <div id="loginError" style="color: var(--danger); font-size: 14px; margin-bottom: 16px; display: none; text-align: center;">Invalid username or password</div>
-        <button type="submit" class="btn-primary" style="width: 100%;">
-          Login
-        </button>
+        <div id="loginError" style="color: var(--danger); font-size: 14px; margin-bottom: 16px; display: none; text-align: center;">Invalid credentials</div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
       </form>
     </div>
   </div>
 
-  <!-- DASHBOARD SECTION -->
+  <!-- DASHBOARD SECTION (Hidden by default) -->
   <div id="dashboardSection" style="display: none;">
+    
     <div class="page-hero">
       <h1>Admin Dashboard</h1>
-      <p>Manage assets, track usage, and monitor system activity</p>
+      <p>Manage assets, generate reports, and track inventory.</p>
     </div>
 
+    <!-- METRICS -->
     <div class="stats-grid animate-in">
       <div class="stat-card">
-        <div class="stat-value" id="totalAssets">156</div>
+        <div class="stat-value" id="totalAssets">0</div>
         <div class="stat-label">Total Assets</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value" id="borrowedCount">42</div>
-        <div class="stat-label">Currently Borrowed</div>
+        <div class="stat-value" id="borrowedAssets">0</div>
+        <div class="stat-label">Borrowed</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value" id="activeUsers">28</div>
-        <div class="stat-label">Active Users</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="todayScans">127</div>
-        <div class="stat-label">Today's Scans</div>
+        <div class="stat-value" id="availableAssets">0</div>
+        <div class="stat-label">Available</div>
       </div>
     </div>
 
+    <!-- ADD ASSET -->
     <div class="section">
-      <h2 class="section-title">Recent Activity</h2>
-      <p class="section-subtitle">Track the latest asset movements in real-time</p>
-      
-      <div class="table-container animate-in">
-        <table>
-          <thead>
-            <tr>
-              <th>Asset ID</th>
-              <th>Asset Name</th>
-              <th>User</th>
-              <th>Action</th>
-              <th>Time</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="activityTable">
-            <tr>
-              <td>AST-001</td>
-              <td>MacBook Pro 16"</td>
-              <td>John Smith</td>
-              <td>Borrow</td>
-              <td>2 min ago</td>
-              <td><span class="badge badge-success">Active</span></td>
-            </tr>
-            <tr>
-              <td>AST-045</td>
-              <td>Projector - Sony 4K</td>
-              <td>Sarah Chen</td>
-              <td>Return</td>
-              <td>15 min ago</td>
-              <td><span class="badge badge-info">Returned</span></td>
-            </tr>
-            <tr>
-              <td>AST-023</td>
-              <td>Conference Room Key</td>
-              <td>Mike Johnson</td>
-              <td>Borrow</td>
-              <td>32 min ago</td>
-              <td><span class="badge badge-success">Active</span></td>
-            </tr>
-            <tr>
-              <td>AST-089</td>
-              <td>iPad Pro 12.9"</td>
-              <td>Emily Davis</td>
-              <td>Borrow</td>
-              <td>1 hour ago</td>
-              <td><span class="badge badge-warning">Overdue</span></td>
-            </tr>
-            <tr>
-              <td>AST-012</td>
-              <td>Wireless Mouse Set</td>
-              <td>Alex Turner</td>
-              <td>Return</td>
-              <td>2 hours ago</td>
-              <td><span class="badge badge-info">Returned</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="grid-2">
-        <div class="card animate-in animate-in-1">
-          <div class="card-header">
-            <div class="card-icon green">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
+      <h2 class="section-title">Add New Asset</h2>
+      <div class="card animate-in" style="max-width: 800px; margin: 0 auto;">
+        <form id="addAssetForm" onsubmit="handleAddAsset(event)">
+          <div class="grid-3" style="gap: 16px; margin-bottom: 16px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="assetID">Asset ID</label>
+              <input type="text" id="assetID" placeholder="KEY-001" required>
             </div>
-            <h3>Add New Asset</h3>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="assetName">Name</label>
+              <input type="text" id="assetName" placeholder="Conference Room Key" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="category">Category</label>
+              <input type="text" id="category" placeholder="Keys">
+            </div>
           </div>
-          <p>Register a new asset into the system for tracking and management.</p>
-          <button class="btn-primary" style="margin-top: 16px; width: 100%;" onclick="showAddAssetModal()">
-            Add Asset
-          </button>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Storage Room A">
+          </div>
+          
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <button type="submit" class="btn-primary">Add Asset</button>
+            <div id="qrPreviewContainer" style="display: none;">
+               <img id="qrPreview" width="100" style="border-radius: 8px; border: 1px solid var(--border);">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="section">
+      <h2 class="section-title">Reports</h2>
+      <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
+        <div class="card animate-in animate-in-1" style="text-align: center;">
+          <h4 style="margin-bottom: 12px;">Print Report</h4>
+          <button class="btn-secondary" onclick="printReport()" style="width: 100%;">Print</button>
+        </div>
+        <div class="card animate-in animate-in-2" style="text-align: center;">
+          <h4 style="margin-bottom: 12px;">Download Data</h4>
+          <button class="btn-secondary" onclick="downloadCSV()" style="width: 100%;">Download CSV</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH & TABLE -->
+    <div class="section">
+      <h2 class="section-title">Inventory</h2>
+      <p class="section-subtitle">Search and manage all tracked items</p>
+      
+      <div class="card animate-in" style="max-width: 1000px; margin: 0 auto;">
+        <div class="form-group">
+          <input type="text" id="search" placeholder="Search by ID or Name..." onkeyup="searchInventory()" style="margin-bottom: 20px;">
         </div>
         
-        <div class="card animate-in animate-in-2">
-          <div class="card-header">
-            <div class="card-icon purple">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-              </svg>
-            </div>
-            <h3>Export Report</h3>
-          </div>
-          <p>Generate and download comprehensive reports on asset usage and activity.</p>
-          <button class="btn-secondary" style="margin-top: 16px; width: 100%;" onclick="exportReport()">
-            Export CSV
-          </button>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Holder</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="assetBody">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </div>
-  
-</div>
 
-<div id="addAssetPopup" class="popup">
-  <div class="popupContent" style="max-width: 400px;">
-    <h3>Add New Asset</h3>
-    <form id="addAssetForm" onsubmit="addAsset(event)">
-      <div class="form-group">
-        <label for="assetName">Asset Name</label>
-        <input type="text" id="assetName" placeholder="e.g., MacBook Pro 16-inch" required>
-      </div>
-      <div class="form-group">
-        <label for="assetCategory">Category</label>
-        <select id="assetCategory" required>
-          <option value="">Select category</option>
-          <option value="electronics">Electronics</option>
-          <option value="keys">Keys</option>
-          <option value="equipment">Equipment</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="assetLocation">Location</label>
-        <input type="text" id="assetLocation" placeholder="e.g., Storage Room A">
-      </div>
-      <div class="popup-buttons">
-        <button type="button" onclick="closeAddAssetPopup()">Cancel</button>
-        <button type="submit">Add Asset</button>
-      </div>
-    </form>
   </div>
 </div>
 
-<script src="main.js"></script>
+<div class="footer">
+  <p>BorrowSmart Admin Panel</p>
+</div>
+
 <script>
-// Credentials for demo
+// --- AUTHENTICATION & NAVIGATION LOGIC ---
+
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "password123";
 
@@ -237,13 +192,16 @@ function updateUI() {
     loginSection.style.display = "none";
     dashboardSection.style.display = "block";
     
-    // Admin Nav
+    // Admin Nav (Replaces Solutions/About/Contact with Messages)
     nav.innerHTML = `
       <a href="index.html">Home</a>
       <a href="admin_message.html">Messages</a>
       <a href="#" onclick="logout()" class="nav-admin">Logout</a>
     `;
     mobileNav.innerHTML = nav.innerHTML;
+    
+    // Load Data
+    loadDashboardData();
   } else {
     // Show Login
     loginSection.style.display = "block";
@@ -281,76 +239,92 @@ function logout() {
   updateUI();
 }
 
-// Initial check
-updateUI();
+// --- DASHBOARD DATA LOGIC (Simulated) ---
 
-// Dashboard functions
-function showAddAssetModal() {
-  document.getElementById('addAssetPopup').classList.add('active');
-}
+let assets = [
+  { id: "KEY-001", name: "Conference Room A", status: "Available", holder: "-" },
+  { id: "PRJ-001", name: "Sony Projector", status: "Borrowed", holder: "John Smith" },
+  { id: "LAP-005", name: "MacBook Pro 16", status: "Borrowed", holder: "Sarah Chen" },
+];
 
-function closeAddAssetPopup() {
-  document.getElementById('addAssetPopup').classList.remove('active');
-}
-
-function addAsset(e) {
-  e.preventDefault();
-  const name = document.getElementById('assetName').value;
+function loadDashboardData() {
+  // Update Stats
+  document.getElementById("totalAssets").textContent = assets.length;
+  document.getElementById("borrowedAssets").textContent = assets.filter(a => a.status === "Borrowed").length;
+  document.getElementById("availableAssets").textContent = assets.filter(a => a.status === "Available").length;
   
-  const assetId = 'AST-' + String(Math.floor(Math.random() * 900) + 100);
-  
-  const tbody = document.getElementById('activityTable');
-  const newRow = document.createElement('tr');
-  newRow.innerHTML = `
-    <td>${assetId}</td>
-    <td>${name}</td>
-    <td>Admin</td>
-    <td>Created</td>
-    <td>Just now</td>
-    <td><span class="badge badge-info">New</span></td>
-  `;
-  tbody.insertBefore(newRow, tbody.firstChild);
-  
-  document.getElementById('totalAssets').textContent = parseInt(document.getElementById('totalAssets').textContent) + 1;
-  
-  closeAddAssetPopup();
-  document.getElementById('addAssetForm').reset();
+  renderTable(assets);
 }
 
-function exportReport() {
-  alert('Report exported successfully! Check your downloads folder.');
-}
-
-// Animate stats on load
-function animateValue(element, start, end, duration) {
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    element.textContent = Math.floor(progress * (end - start) + start);
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  window.requestAnimationFrame(step);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const stats = document.querySelectorAll('.stat-value');
-  stats.forEach((stat, i) => {
-    const value = parseInt(stat.textContent);
-    stat.textContent = '0';
-    setTimeout(() => {
-      animateValue(stat, 0, value, 1000);
-    }, i * 100);
+function renderTable(data) {
+  const tbody = document.getElementById("assetBody");
+  tbody.innerHTML = "";
+  
+  data.forEach(asset => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${asset.id}</td>
+      <td>${asset.name}</td>
+      <td><span class="badge ${asset.status === 'Available' ? 'badge-success' : 'badge-warning'}">${asset.status}</span></td>
+      <td>${asset.holder}</td>
+      <td><button class="btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="deleteAsset('${asset.id}')">Delete</button></td>
+    `;
+    tbody.appendChild(row);
   });
-});
+}
 
-document.getElementById('addAssetPopup').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeAddAssetPopup();
-  }
-});
+function searchInventory() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const filtered = assets.filter(a => 
+    a.id.toLowerCase().includes(query) || 
+    a.name.toLowerCase().includes(query)
+  );
+  renderTable(filtered);
+}
+
+function handleAddAsset(e) {
+  e.preventDefault();
+  const id = document.getElementById("assetID").value;
+  const name = document.getElementById("assetName").value;
+  const category = document.getElementById("category").value; // Unused in this demo
+  const location = document.getElementById("location").value; // Unused in this demo
+
+  assets.push({ id: id, name: name, status: "Available", holder: "-" });
+  loadDashboardData();
+  
+  // Reset form
+  document.getElementById("addAssetForm").reset();
+  
+  // Show fake QR Preview
+  document.getElementById("qrPreviewContainer").style.display = "block";
+  document.getElementById("qrPreview").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + id;
+}
+
+function deleteAsset(id) {
+  assets = assets.filter(a => a.id !== id);
+  loadDashboardData();
+}
+
+function printReport() {
+  window.print();
+}
+
+function downloadCSV() {
+  let csv = "ID,Name,Status,Holder\n";
+  assets.forEach(a => {
+    csv += `${a.id},${a.name},${a.status},${a.holder}\n`;
+  });
+  
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'assets.csv';
+  a.click();
+}
+
+// Initialize
+updateUI();
 </script>
 </body>
 </html>
