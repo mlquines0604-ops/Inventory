@@ -7,108 +7,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  /* Additional styles for real team photos */
-  .team-photo-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease;
-  }
-  
-  .team-photo-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .team-photo {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border);
-  }
-  
-  .team-info {
-    padding: 24px;
-  }
-  
-  .team-info h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  
-  .team-info p {
-    color: var(--fg-muted);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-  
-  .team-section {
-    margin-bottom: 60px;
-  }
-  
-  .team-section h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
-  }
-  
-  .team-section .section-desc {
-    color: var(--fg-muted);
-    font-size: 16px;
-    margin-bottom: 32px;
-    max-width: 600px;
-  }
-  
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-  }
-  
-  .group-photo-container {
-    position: relative;
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 32px;
-    border: 1px solid var(--border);
-  }
-  
-  .group-photo {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .photo-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px 30px 30px;
-    background: linear-gradient(to top, rgba(10, 14, 23, 0.95) 0%, transparent 100%);
-  }
-  
-  .photo-overlay h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--fg);
-  }
-  
-  .photo-overlay p {
-    color: var(--fg-muted);
-    font-size: 15px;
-  }
-</style>
 </head>
 <body>
 <div class="bg-layer">
@@ -152,51 +50,83 @@
 <div class="container container-wide">
   <div class="page-hero">
     <h1>Our Team</h1>
-    <p>The talented individuals driving innovation at BorrowSmart</p>
+    <p>The dedicated people behind BorrowSmart, working tirelessly to build the future of asset management.</p>
   </div>
 
-  <!-- Engineering Team Section -->
-  <div class="team-section animate-in">
-    <h2>Engineering Team</h2>
-    <p class="section-desc">Our engineering team builds the robust infrastructure and intelligent systems that power our platform.</p>
+  <!-- App Development Section -->
+  <div class="section">
+    <h2 class="section-title">App Development</h2>
+    <p class="section-subtitle">Our development team in action, building and refining the BorrowSmart experience.</p>
     
-    <div class="group-photo-container animate-in animate-in-1">
-      <img src="team-engineering.jpeg" alt="Engineering Team Group Photo" class="group-photo">
-      <div class="photo-overlay">
-        <h3>The Builders</h3>
-        <p>Collaborative, innovative, and always shipping.</p>
+    <div class="grid-3">
+      <div class="card animate-in animate-in-1" style="padding: 0; overflow: hidden; height: 100%;">
+        <img src="https://z-cdn-media.chatglm.cn/files/ec614078-e8e7-44c8-b47d-6d0e8b197fc5.jpeg?auth_key=1873715236-25db2cda833741d1b2347d04d0c0e247-0-621e530668564fbf29ea5a98247f1cf0" alt="App Development Process" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+      <div class="card animate-in animate-in-2" style="padding: 0; overflow: hidden; height: 100%;">
+        <img src="https://z-cdn-media.chatglm.cn/files/b8ce6435-fcde-4380-abf5-31f7c40e5f4a.jpeg?auth_key=1873715236-6a36e5d715294196be815685bbb4f1af-0-58da7c0185a880ab1dadab5de87c0ca7" alt="Office Operations" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+      <div class="card animate-in animate-in-3" style="padding: 0; overflow: hidden; height: 100%;">
+        <img src="https://z-cdn-media.chatglm.cn/files/152de55c-3c48-42bb-b812-c4b7f67b62ac.jpeg?auth_key=1873715236-cbb8a6d62a2b4c7fb02627502d390969-0-553f0a62523001045c33794145503ee9" alt="Team Member" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
     </div>
   </div>
 
-  <!-- App Development Team Section -->
-  <div class="team-section">
-    <h2>App Development Team</h2>
-    <p class="section-desc">Focused on delivering seamless user experiences and maintaining our core application infrastructure.</p>
+  <!-- Engineering Team Section -->
+  <div class="section">
+    <h2 class="section-title">Engineering Team</h2>
+    <p class="section-subtitle">Collaboration and innovation drive our engineering success.</p>
     
-    <div class="photo-grid">
-      <div class="team-photo-card animate-in animate-in-1">
-        <img src="appdev1.jpeg" alt="App Dev Team Member" class="team-photo">
-        <div class="team-info">
-          <h3>Operations Lead</h3>
-          <p>Managing secure document workflows and ensuring smooth operational processes for the development cycle.</p>
-        </div>
+    <div class="card animate-in" style="padding: 0; overflow: hidden; max-width: 900px; margin: 0 auto;">
+      <img src="https://z-cdn-media.chatglm.cn/files/4471f11a-f551-47f6-91ba-8ce5fe969268.jpeg?auth_key=1873715236-247a0de06f804c2bba6e77f7449e686d-0-811adaf560179b8ce2549d0a330d7fd7" alt="Engineering Team Group Photo" style="width: 100%; display: block;">
+    </div>
+  </div>
+
+  <!-- Individual Team Members -->
+  <div class="section">
+    <h2 class="section-title">Meet Our Team</h2>
+    <p class="section-subtitle">The people behind the innovation</p>
+    
+    <div class="team-grid">
+      <div class="team-card animate-in animate-in-1">
+        <div class="team-avatar">JM</div>
+        <h4>Jordan Mitchell</h4>
+        <div class="role">CEO & Co-founder</div>
+        <p>Former operations lead at a Fortune 500 company with 15 years of experience in enterprise software.</p>
       </div>
       
-      <div class="team-photo-card animate-in animate-in-2">
-        <img src="appdev2.jpeg" alt="App Dev Team Member" class="team-photo">
-        <div class="team-info">
-          <h3>Frontend Specialist</h3>
-          <p>Crafting intuitive interfaces and ensuring the application runs flawlessly for end-users.</p>
-        </div>
+      <div class="team-card animate-in animate-in-2">
+        <div class="team-avatar">AL</div>
+        <h4>Alex Lin</h4>
+        <div class="role">CTO & Co-founder</div>
+        <p>Ex-Google engineer specializing in distributed systems and machine learning infrastructure.</p>
       </div>
       
-      <div class="team-photo-card animate-in animate-in-3">
-        <img src="appdev3.jpeg" alt="App Dev Team Member" class="team-photo">
-        <div class="team-info">
-          <h3>Systems Architect</h3>
-          <p>Overseeing system integration and maintaining the security standards of our application environment.</p>
-        </div>
+      <div class="team-card animate-in animate-in-3">
+        <div class="team-avatar">SP</div>
+        <h4>Sam Patel</h4>
+        <div class="role">Head of Product</div>
+        <p>Product visionary who previously led UX teams at Airbnb and helped shape design systems.</p>
+      </div>
+      
+      <div class="team-card animate-in animate-in-1">
+        <div class="team-avatar">RK</div>
+        <h4>Rachel Kim</h4>
+        <div class="role">Head of Customer Success</div>
+        <p>Customer advocate with a track record of achieving 98% customer satisfaction ratings.</p>
+      </div>
+      
+      <div class="team-card animate-in animate-in-2">
+        <div class="team-avatar">DT</div>
+        <h4>David Torres</h4>
+        <div class="role">Lead Engineer</div>
+        <p>Full-stack developer passionate about building scalable, user-friendly applications.</p>
+      </div>
+      
+      <div class="team-card animate-in animate-in-3">
+        <div class="team-avatar">EN</div>
+        <h4>Emma Nguyen</h4>
+        <div class="role">Design Lead</div>
+        <p>Award-winning designer focused on creating intuitive, accessible digital experiences.</p>
       </div>
     </div>
   </div>
