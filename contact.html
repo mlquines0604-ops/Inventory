@@ -65,7 +65,7 @@
           <label for="message">Message</label>
           <textarea id="message" placeholder="Tell us how we can help..." required></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">
+        <button type="submit" class="btn-primary" style="width: 100%;" id="submitBtn">
           Send Message
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
@@ -99,30 +99,60 @@
       </svg>
     </div>
     <h3>Message Sent</h3>
+    <p>Thank you for reaching out! We'll get back to you shortly.</p>
     <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="closeSuccessPopup()">Got it</button>
   </div>
 </div>
 
 <script src="main.js"></script>
 <script>
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
   
-  // Get form values
+  const submitBtn = document.getElementById('submitBtn');
+  const originalText = submitBtn.innerHTML;
+  
+  // Disable button and show loading state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = 'Sending...';
+
   const name = document.getElementById('name').value;
   const message = document.getElementById('message').value;
-  
-  // Construct the SMS body
-  const smsBody = `Name: ${name}%0AMessage: ${message}`;
-  
-  // Redirect to the SMS app
-  window.location.href = `sms:+639324191412?body=${smsBody}`;
-  
-  // Show success popup
-  document.getElementById('successPopup').classList.add('active');
-  
-  // Reset form
-  document.getElementById('contactForm').reset();
+  const phoneNumber = "+639324191412"; // Target number
+
+  // Prepare data for the API
+  const data = {
+    to: phoneNumber,
+    body: `Name: ${name}\nMessage: ${message}`
+  };
+
+  try {
+    // Send data to backend API endpoint
+    // NOTE: You must have a server running at this URL to receive the request
+    // and forward it to an SMS gateway (like Twilio, Semaphore, etc.)
+    const response = await fetch('/api/send-sms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      // Show success popup
+      document.getElementById('successPopup').classList.add('active');
+      document.getElementById('contactForm').reset();
+    } else {
+      alert('Failed to send message. Please try again later.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Please check your connection.');
+  } finally {
+    // Re-enable button
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
 }
 
 function closeSuccessPopup() {
