@@ -35,7 +35,7 @@
     <a href="solutions.html">Solutions</a>
     <a href="about.html">About</a>
     <a href="contact.html" class="active">Contact</a>
-    <a href="admin.html" class="nav-admin">Admin</a>
+    <a href="admin_message.html" class="nav-admin">Admin</a>
   </nav>
 </header>
 
@@ -44,7 +44,7 @@
   <a href="solutions.html">Solutions</a>
   <a href="about.html">About</a>
   <a href="contact.html" class="active">Contact</a>
-  <a href="admin.html">Admin</a>
+  <a href="admin_message.html">Admin</a>
 </div>
 
 <div class="container container-wide">
@@ -82,8 +82,8 @@
           </svg>
         </div>
         <div>
-          <h4>Call Us</h4>
-          <p>+63 932 419 1412</p>
+          <h4>Contact Info</h4>
+          <p>Messages are directed to our admin panel.</p>
         </div>
       </div>
     </div>
@@ -123,11 +123,7 @@ function handleSubmit(e) {
   messages.unshift(newMessage); // Add to top of list
   localStorage.setItem('borrowSmartMessages', JSON.stringify(messages));
 
-  // 2. Open SMS App (Original functionality)
-  const smsBody = `Name: ${name}%0AMessage: ${message}`;
-  window.location.href = `sms:+639324191412?body=${smsBody}`;
-  
-  // 3. Show UI Feedback
+  // 2. Show UI Feedback
   document.getElementById('successPopup').classList.add('active');
   document.getElementById('contactForm').reset();
 }
