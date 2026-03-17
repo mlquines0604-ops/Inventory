@@ -30,21 +30,13 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
     </svg>
   </button>
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="solutions.html">Solutions</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="admin_message.html" class="active nav-admin">Admin</a>
+  <nav class="nav-links" id="mainNav">
+    <!-- Injected by JS -->
   </nav>
 </header>
 
-<div class="mobile-nav">
-  <a href="index.html">Home</a>
-  <a href="solutions.html">Solutions</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-  <a href="admin_message.html" class="active">Admin</a>
+<div class="mobile-nav" id="mobileNav">
+  <!-- Injected by JS -->
 </div>
 
 <div class="container container-wide">
@@ -75,6 +67,30 @@
 
 <script src="main.js"></script>
 <script>
+// Auth Check & Nav Update
+(function() {
+  const isLoggedIn = localStorage.getItem("adminLoggedIn") === "true";
+  const nav = document.getElementById("mainNav");
+  const mobileNav = document.getElementById("mobileNav");
+
+  if (!isLoggedIn) {
+    window.location.href = "admin.html"; // Redirect if not logged in
+  } else {
+    // Set Admin Nav
+    nav.innerHTML = `
+      <a href="index.html">Home</a>
+      <a href="admin_message.html" class="active">Messages</a>
+      <a href="#" onclick="logout()" class="nav-admin">Logout</a>
+    `;
+    mobileNav.innerHTML = nav.innerHTML;
+  }
+})();
+
+function logout() {
+  localStorage.removeItem("adminLoggedIn");
+  window.location.href = "admin.html";
+}
+
 function loadMessages() {
   const container = document.getElementById('messagesContainer');
   const messages = JSON.parse(localStorage.getItem('borrowSmartMessages')) || [];
