@@ -53,11 +53,11 @@
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" placeholder="admin" required>
+          <input type="text" id="username" placeholder="" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••" required>
+          <input type="password" id="password" placeholder="" required>
         </div>
         <div id="loginError" style="color: var(--danger); font-size: 14px; margin-bottom: 16px; display: none; text-align: center;">Invalid credentials</div>
         <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
@@ -209,8 +209,7 @@ function updateUI() {
     
     // Public Nav
     nav.innerHTML = `
-      <a href="index.html">Home</a>
-      <a href="solutions.html">Solutions</a>
+      <a href="index.html">Home</a>  
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
       <a href="admin.html" class="nav-admin active">Admin</a>
@@ -243,8 +242,6 @@ function logout() {
 
 let assets = [
   { id: "KEY-001", name: "Conference Room A", status: "Available", holder: "-" },
-  { id: "PRJ-001", name: "Sony Projector", status: "Borrowed", holder: "John Smith" },
-  { id: "LAP-005", name: "MacBook Pro 16", status: "Borrowed", holder: "Sarah Chen" },
 ];
 
 function loadDashboardData() {
